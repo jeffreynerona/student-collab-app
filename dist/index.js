@@ -12,12 +12,33 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // Set up the express app
 var app = (0, _express2.default)();
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // get all todos
-app.get('/api/v1/todos', function (req, res) {
+app.get('/api/v1/tasks', function (req, res) {
   res.status(200).send({
     success: true,
     message: 'Tasks retrieved succesfully!',
-    data: _db2.default
+    data: _db2.default.tasks
+  });
+});
+app.get('/api/v1/columns', function (req, res) {
+  res.status(200).send({
+    success: true,
+    message: 'Columns retrieved succesfully!',
+    data: _db2.default.columns
+  });
+});
+app.get('/api/v1/columnOrder', function (req, res) {
+  res.status(200).send({
+    success: true,
+    message: 'Column Oder retrieved succesfully!',
+    data: _db2.default.columnOrder
   });
 });
 var PORT = 5000;
